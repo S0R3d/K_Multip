@@ -2,11 +2,9 @@
 // God blessed then and said:
 // "Be fruitful and MULTIPLY..." - Genesis 1:22
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 
 // Function that converts a number in digits and store in split (less sign. digit -> less sign. posizion)
 void R_number_to_digits(int n, int *s, int dim) {
@@ -76,7 +74,6 @@ void K_multip_2dig(int *sum, int *s1, int dim1, int *s2, int dim2)
 }
 
 // K-Multiplication of 4/3, 2/1 digits in splits
-// Range Numbers: ~1000 - 100 ; 99 - 10 ; 9 - 1 ; 0?
 // TODO: incorret value of second more sign. digit in 'sum', for 4 digits sum;
 void K_multip(int *sum, int *s1, int dim1, int *s2, int dim2) {
    if (dim1 != 2 && dim2 != 2) {
@@ -119,10 +116,8 @@ void K_multip(int *sum, int *s1, int dim1, int *s2, int dim2) {
 void user_input(int* n1, int* n2) {
    printf("Insert first number (range ~1000 - 100 ; 99 - 10 ; 9 - 1): ");
    scanf("%d", n1);
-   // scanf("%zd\n", n1);
    printf("Insert second number (range ~1000 - 100 ; 99 - 10 ; 9 - 1): ");
    scanf("%d", n2);
-   // scanf("%zd\n", n2);
 }
 
 // TODO: change type of ALL number and digits in uint32_t?(per aumentare il numero massimo possibile)
@@ -170,7 +165,6 @@ int main() {
       p += (sum[i] * (int)pow(10,(double)i));
    }
    
-
    printf("Result:      %d\n", p);
    printf("Correct:     %d\n", n1*n2);
    printf("Difference:  %d\n", (n1*n2) - p);
