@@ -18,7 +18,6 @@ Function that receive 2 'array' of digits, and sum second array into first array
 
 * ### void carry_over_digits(int* ,int )
 Function that receive an 'array' after-sum and reduce all values in digit.
-WARNING: This function has a bug: remove carry-over of more significant digits.
 
 * ### void number_to_digits(int ,int* ,int )
 Function that receive a number and convert it in an 'array' of digits, with more significant digit on first position.
@@ -30,3 +29,4 @@ Function that receive a number and convert it in an 'array' of digits, with less
 * numbers with 1 digit: 1-9 
 * numbers with 2 digits: 10-99
 * numbers with 3 digits: 100-999
+* numbers with 4 digits: 1000-9999
