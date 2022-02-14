@@ -1,5 +1,12 @@
 .DS_Store
 .vscode
 
+# Output files from compilation and debug
 a.out
+a.out.dSYM
+karatsuba_s_multiplication
+karatsuba_s_multiplication.dSYM
+
+# Personal Helping files
 todo.md
+test.c
