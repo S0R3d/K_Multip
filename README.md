@@ -1,6 +1,6 @@
-# Karatusaba's Multiplication
+# Karatsuba's Multiplication
 
-Karatusaba's Multiplication Method
+Karatsuba's Multiplication Method
 
 God blessed then and said:
 "Be fruitful and MULTIPLY..." - Genesis 1:22
@@ -19,6 +19,9 @@ Function that receive 2 'array' of digits, and sum second array into first array
 * ### void carry_over_digits(int* ,int )
 Function that receive an 'array' after-sum and reduce all values in digit.
 
+* ### void check_sizes(int*, int*)
+Function that receive 2 pointers of int(dimension) and checks if these dimensions are correct, otherwise change them.
+
 * ### void number_to_digits(int ,int* ,int )
 Function that receive a number and convert it in an 'array' of digits, with more significant digit on first position.
 
@@ -26,7 +29,7 @@ Function that receive a number and convert it in an 'array' of digits, with more
 Function that receive a number and convert it in an 'array' of digits, with less significant digit on first position.
 
 ## Range of Number
-* numbers with 1 digit: 1-9 
-* numbers with 2 digits: 10-99
-* numbers with 3 digits: 100-999
-* numbers with 4 digits: 1000-9999
+* Numbers with 1 digit: 1-9 
+* Numbers with 2 digits: 10-99
+* Numbers with 3 digits: 100-999
+* Numbers with 4 digits: 1000-9999 (~Limit of INT value type)
