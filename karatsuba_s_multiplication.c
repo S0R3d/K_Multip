@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <math.h>
 
 // Function that converts a number in digits and store in split (less sign. digit -> less sign. posizion)
@@ -111,10 +110,11 @@ void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
       free(sumapp);
       free(sumapp1);
    } else K_multip_2dig(sum, s1, dim1, s2, dim2);
+
 }
 
 // Function that receves input numbers from user
-void user_input(int64_t* n1, int64_t* n2) {
+void user_input(long long* n1, long long* n2) {
    printf("Numbers Range: 0, 1 - 9, 10 - 99, 100 - 999, 1000 - 9999 \n");
    printf("Insert first number: ");
    scanf("%lld", n1);
@@ -127,12 +127,12 @@ void user_input(int64_t* n1, int64_t* n2) {
 void between_main_multip() {}
 
 int main() {
-   int64_t n1,n2;
+   long long n1,n2;
 
    // user_input(&n1, &n2);
    n1 = 99999, n2 = 99999;
 
-   int64_t p = 0;
+   long long p = 0;
 
    size_t dim1 = floor(log10(llabs(n1)))+1;
    size_t dim2 = floor(log10(llabs(n2)))+1;
@@ -161,7 +161,7 @@ int main() {
       printf("sum: %d\n", sum[i]);
 
    for (size_t i = 0; i < (dim1+dim2); i++)
-      p += (sum[i] * (int64_t)pow(10,(double)i));
+      p += (sum[i] * (long long)pow(10,(double)i));
    
    
    printf("--------------------\n");
