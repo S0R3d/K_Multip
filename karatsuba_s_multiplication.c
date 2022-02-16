@@ -32,29 +32,19 @@ void print_digits(char prev[], int *s, size_t dim) {
    printf("\n");
 }
 
-void left_shift_digits(int* s, size_t* dim) {
-   int zero = 0;
-   // max dim 's': dim*2;
-   int sz = *dim*2;
-
-   for (size_t i = sz; i-- >= *dim; )
-   {
-      *(s+i) = *(s+(i-1));
-   }
-   *(s+(*dim-1)) = zero;
-   *dim += 1;   
-}
-
 // Function that controll if 'dimension' is even and if isn't add +1
 void check_sizes(size_t* ptr1, size_t* ptr2) {
-   if (*ptr1 != *ptr2 && *ptr1 > *ptr2)
-      *ptr2 += (*ptr1) - (*ptr2);
-   if (*ptr1 != *ptr2 && *ptr2 > *ptr1)
-      *ptr1 += (*ptr2) - (*ptr1);
-   if ((*ptr1)%2 != 0)
-      *ptr1 += 1;
-   if ((*ptr2)%2 != 0)
-      *ptr2 += 1;
+   if (*ptr1 != *ptr2) {
+      if (*ptr1 != *ptr2 && *ptr1 > *ptr2)
+         *ptr2 += (*ptr1) - (*ptr2);
+      if (*ptr1 != *ptr2 && *ptr2 > *ptr1)
+         *ptr1 += (*ptr2) - (*ptr1);
+   }
+   if (*ptr1 & 1)
+      *ptr1 += 1, *ptr2 += 1;
+   while (!(!(*ptr1 & (*ptr1 - 1)) && *ptr1)) {
+      *ptr1 += 1, *ptr2 += 1;
+   }
 }
 
 // Function that reduces number in a split (2+ digits) in digits on the same split
@@ -101,65 +91,27 @@ void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
       fprintf(stderr, "ERROR: possible loop detected!\nDimension values: %zu, %zu\n", dim1,dim2);
       exit(1);
    }
-
-   // FIXME: err -> se incremento il dim di 1 prendo un digit errato cioè uno presente della lista precedente,
-   //             invece che aggiungere uno zero
-
-   if ( (!(dim1 & (dim1 - 1)) && dim1) ) {
-      printf ("dim1 pow 2\n");
-   }
-   if ( (!(dim2 & (dim2-1)) && dim2) ) {
-      printf("dim2 pow 2\n");
-   }
-   // printf("%f\n", log2((double)dim1));
-   // if (log2((double)dim1) != .1f) {
-   //    printf("pari\n");
-   // }
-   check_sizes(&dim1,&dim2);
-   printf("dim1:%zu dim2:%zu\n\n", dim1, dim2);
    
-   if (dim1 != 2 && dim2 != 2) {
-
-      print_digits("s1: ",s1,dim1*2);
-      print_digits("s2: ",s2,dim2*2);
-
+   if (dim1 != 2 && dim2 != 2)
+   {
       K_multip(sum, s1, dim1/2, s2, dim2/2);
 
-      print_digits("sum -sign.: ",sum, dim1+dim2);
-
-      print_digits("s1: ",s1,dim1);
-      print_digits("s2: ",s2,dim2);
-      
       K_multip(&sum[dim1/2+dim2/2], &s1[dim1/2], dim1-dim1/2, &s2[dim2/2], dim2-dim2/2);
-
-      print_digits("sum +sign.: ",sum, dim1+dim2);
-
+      
       int* sumapp = (int*)malloc(sizeof(int) * dim1);
       int* sumapp1 = (int*)malloc(sizeof(int) * dim1);
 
       K_multip(sumapp, s1, dim1/2, &s2[dim2/2], dim2-dim2/2);
-      print_digits("sumapp: ",sumapp, dim1);
-
+      
       K_multip(sumapp1, &s1[dim1/2], dim1-dim1/2, s2, dim2/2);
-      print_digits("sumapp1: ",sumapp1, dim1);
-
+      
       sum_digits(sumapp, sumapp1, dim1);
-      print_digits("sumapp somma: ",sumapp, dim1);
-
-      sum_digits(&sum[(dim1+dim2)/4], sumapp, dim1);
-      print_digits("sum w/ sum app: ",sum, dim1+dim2);
+      
+      sum_digits(&sum[(dim1+dim2)/4], sumapp, dim1); 
 
       free(sumapp);
       free(sumapp1);
-   } else {
-      print_digits("s1: ",s1, dim1);
-      print_digits("s2: ",s2, dim2);
-
-      K_multip_2dig(sum, s1, dim1, s2, dim2);
-
-      print_digits("sum 2dig: ",sum, dim1+dim2);
-   }
-   print_digits("sum end func: ",sum, dim1+dim2);
+   } else K_multip_2dig(sum, s1, dim1, s2, dim2);
 }
 
 // Function that receves input numbers from user
@@ -178,8 +130,8 @@ void between_main_multip() {}
 int main() {
    long long n1,n2;
 
-   // user_input(&n1, &n2);
-   n1 = 99999, n2 = 99999;
+   user_input(&n1, &n2);
+   // n1 = 99999, n2 = 99999;
 
    long long p = 0;
 
@@ -196,8 +148,8 @@ int main() {
    int* s2 = (int*)malloc(sizeof(int) * dim2);
    R_number_to_digits(n2, s2, dim2);
 
-   print_digits("s1 fonte: ",s1,dim1);
-   print_digits("s2 fonte: ",s2,dim2);
+   print_digits("s1 - input: ", s1, dim1);
+   print_digits("s2 - input: ", s2, dim2);
 
    // main function
    K_multip(sum, s1, dim1, s2, dim2);
