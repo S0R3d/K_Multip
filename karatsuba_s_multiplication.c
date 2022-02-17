@@ -112,22 +112,17 @@ void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
 
 // Function that receves input numbers from user
 void user_input(long long* n1, long long* n2) {
-   printf("Numbers Range: 0, 1 - 9, 10 - 99, 100 - 999, 1000 - 9999 \n");
+   printf("Numbers Range: 0, 1 - 9, 10 - 99, 100 - 999, 1000 - 9999, 10000 - 99999, perhaps beyond these \n");
    printf("Insert first number: ");
    scanf("%lld", n1);
    printf("Insert second number: ");
    scanf("%lld", n2);
 }
 
-// TODO: funzione da chiamare dall'esterno che fa funzionare K_Multip senza il main
-// Trasforma i numeri in array di digits e regola le dimensioni, alla fine raggruppa i digits nel risultato
-void between_main_multip() {}
-
 int main() {
    long long n1,n2;
 
    user_input(&n1, &n2);
-   // n1 = 99999, n2 = 99999;
 
    long long p = 0;
 
@@ -151,7 +146,7 @@ int main() {
    K_multip(sum, s1, dim1, s2, dim2);
 
    
-   printf("--------------------\n");
+   printf("-------------------------\n");
    for (size_t i = 0; i < (dim1+dim2); i++)
       printf("sum: %d\n", sum[i]);
 
@@ -159,11 +154,11 @@ int main() {
       p += (sum[i] * (long long)pow(10,(double)i));
    
    
-   printf("--------------------\n");
-   printf("Result:      %lld\n", p);
-   printf("Correct:     %lld\n", n1*n2);
-   printf("Difference:  %lld\n", (n1*n2) - p);
-   printf("--------------------\n");
+   printf("-------------------------\n");
+   printf("W/ Karatsuba's Method:      %lld\n", p);
+   printf("W/ STD Method:              %lld\n", n1*n2);
+   printf("Difference:                 %lld\n", (n1*n2) - p);
+   printf("-------------------------\n");
 
    free(s1);
    free(s2);
