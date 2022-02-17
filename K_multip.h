@@ -31,9 +31,14 @@ void carry_over_to_digits(int *s, size_t dim);
 void sum_digits(int *s1, int *s2, size_t dim);
 
 /**
- * K-Multiplication of 4/3, 2/1 digits in splits
- * int* sum: 
+ * Function
  * */
-void K_multip(int* sum, int* s1, size_t dim1, int* s2, size_t dim2);
+void K_core(int* sum, int* s1, size_t dim1, int* s2, size_t dim2);
+
+/**
+ * Function
+ * Number Range:
+ * */
+long long K_multip(long long a, long long b);
 
 #endif

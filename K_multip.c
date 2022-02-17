@@ -55,7 +55,7 @@ void sum_digits(int *s1, int *s2, size_t dim) {
    carry_over_to_digits(s1, dim);
 }
 
-void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2) 
+void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2) 
 {
    if (dim1 == 0 && dim2 == 0)
    {
@@ -65,16 +65,16 @@ void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
    
    if (dim1 != 2 && dim2 != 2)
    {
-      K_multip(sum, s1, dim1/2, s2, dim2/2);
+      K_core(sum, s1, dim1/2, s2, dim2/2);
 
-      K_multip(&sum[dim1/2+dim2/2], &s1[dim1/2], dim1-dim1/2, &s2[dim2/2], dim2-dim2/2);
+      K_core(&sum[dim1/2+dim2/2], &s1[dim1/2], dim1-dim1/2, &s2[dim2/2], dim2-dim2/2);
       
       int* sumapp = (int*)malloc(sizeof(int) * dim1);
       int* sumapp1 = (int*)malloc(sizeof(int) * dim1);
 
-      K_multip(sumapp, s1, dim1/2, &s2[dim2/2], dim2-dim2/2);
+      K_core(sumapp, s1, dim1/2, &s2[dim2/2], dim2-dim2/2);
       
-      K_multip(sumapp1, &s1[dim1/2], dim1-dim1/2, s2, dim2/2);
+      K_core(sumapp1, &s1[dim1/2], dim1-dim1/2, s2, dim2/2);
       
       sum_digits(sumapp, sumapp1, dim1);
       
@@ -90,4 +90,9 @@ void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
 
       carry_over_to_digits(sum, dim1+dim2);
    }
+}
+
+long long K_multip(long long a, long long b) {
+   long long r = 0;
+   return r;
 }
