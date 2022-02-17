@@ -8,8 +8,7 @@ God blessed then and said:
 
 ## Main Functions
 
-* ### void K_Multip(int* ,int* ,size_t ,size_t )
-* ### void K_Multip_2digit(int* ,int* , size_t ,int* ,size_t )
+* ### void K_Multip(int*, int* ,size_t ,int* ,size_t )
 
 ## Support functions
 

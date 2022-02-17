@@ -72,17 +72,6 @@ void sum_digits(int *s1, int *s2, size_t dim) {
    carry_over_to_digits(s1, dim);
 }
 
-// K-Multiplication of 2/1 digits in splits
-void K_multip_2dig(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
-{
-   *(sum) = *s1 * *s2;
-   *(sum+1) = ( *(s1) * *(s2+ dim2 -1) ) + ( *(s1+ dim1 -1) * *(s2) );
-   *(sum+2) = *(s1+ dim1 -1) * *(s2+ dim2 -1);
-   *(sum+3) = 0;
-
-   carry_over_to_digits(sum, dim1+dim2);
-}
-
 // K-Multiplication of 4/3, 2/1 digits in splits
 void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2) 
 {
@@ -111,7 +100,14 @@ void K_multip(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
 
       free(sumapp);
       free(sumapp1);
-   } else K_multip_2dig(sum, s1, dim1, s2, dim2);
+   } else {
+      *(sum) = *s1 * *s2;
+      *(sum+1) = ( *(s1) * *(s2+ dim2 -1) ) + ( *(s1+ dim1 -1) * *(s2) );
+      *(sum+2) = *(s1+ dim1 -1) * *(s2+ dim2 -1);
+      *(sum+3) = 0;
+
+      carry_over_to_digits(sum, dim1+dim2);
+   }
 }
 
 // Function that receves input numbers from user
