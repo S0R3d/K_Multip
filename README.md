@@ -8,24 +8,28 @@ God blessed then and said:
 
 ## Main Functions
 
-* ### void K_Multip(int*, int* ,size_t ,int* ,size_t )
+* ### void K_multip(int*, int* ,size_t ,int* ,size_t )
 
 ## Support functions
 
 * ### void sum_digits(int* ,int* ,size_t )
-Function that receive 2 'array' of digits, and sum second array into first array.
+Function that adds the values,in digits, of two arrays and stores them in the first.
 
 * ### void carry_over_digits(int* ,size_t )
-Function that receive an 'array' after-sum and reduce all values in digit.
+Function that manages the carryovers in the digits array.
+This function does not manage the carryover to the most significant digit of the entire array,
+because it should be stored outside the size of the array itself.
 
 * ### void check_sizes(size_t*, size_t*)
-Function that receive 2 pointers of int(dimension) and checks if these dimensions are correct, otherwise change them.
+Function that control if sizes is power of 2 and if not,it adds +1 several times until it reaches the correct size.
 
 * ### void number_to_digits(int ,int* ,size_t )
-Function that receive a number and convert it in an 'array' of digits, with more significant digit on first position.
+Function that takes a number, converts it to digits and stores it in an array.
+The most significant digit occupies the first position of the array.
 
 * ### void R_number_to_digits(int ,int* ,size_t )
-Function that receive a number and convert it in an 'array' of digits, with less significant digit on first position.
+Function that takes a number, converts it to digits and stores it in an array.
+The least significant digit occupies the first position of the array.
 
 ## Range of Number
 * Numbers with 1 digit: 1-9 
