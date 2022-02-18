@@ -64,6 +64,39 @@ void sum_digits(int *s1, int *s2, size_t dim) {
 
    carry_over_to_digits(s1, dim);
 }
+// FIXME: change func, 'cause has to check s1 and s2 within
+// type and value returned?
+// TODO: check if dimensions if corrent after modify them:
+// 1 dim even
+// 2 dim1 = dim2
+int zeros_check(int* s1, size_t* dim1, int* s2, size_t* dim2) {
+   // n. of zero in array
+   size_t zeros = 0;
+   // zeros' pos
+   int pos[*dim1];
+
+   for (size_t i = 0; i < *dim1; ++i) {
+      if (*(s1+i) == 0) {
+         pos[zeros] = i;
+         zeros++;
+      }
+   }
+
+   for (size_t i = 0; i < *dim1; ++i)
+      printf("%d\n", pos[i]);
+   
+   // all 0, result of multip = 0
+   if (zeros == *dim1) return 0;
+
+   for (size_t i = zeros, y = *dim1; i-- > 0 && y-- > 0 ; ) {
+      // check if zeros are in supp. half of array
+      if (pos[i] != y) {
+         // return y+1 == *dim1 ? *dim1 : y+1;
+         if (y+1 != *dim1) *dim1 = y+1;
+      }
+   }
+   // return *dim1; dim correct
+}
 
 void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2) 
 {
@@ -71,6 +104,13 @@ void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
    {
       fprintf(stderr, "ERROR: possible loop detected!\nDimension values: %zu, %zu\n", dim1,dim2);
       exit(1);
+   }
+
+   int res = zeros_check(s1, &dim1, s2, &dim2);
+   if ( res == 0) {
+      // moltip di soli zeri si salta la roba sotto
+   } else {
+      // potrei aver tolto degli zeri ma la moltip. va farra comunque
    }
    
    if (dim1 != 2 && dim2 != 2)
@@ -109,32 +149,24 @@ void user_input(long long* n1, long long* n2) {
    scanf("%lld", n1);
    printf("Insert second number: ");
    scanf("%lld", n2);
+   printf("\n");
 }
 
 long long K_multip(long long a, long long b) {
    long long r = 0;
-   return r;
-}
 
-int main() {
-   long long n1,n2;
-   long long p = 0;
-
-   user_input(&n1, &n2);
-
-
-   size_t dim1 = floor(log10(llabs(n1)))+1;
-   size_t dim2 = floor(log10(llabs(n2)))+1;
+   size_t dim1 = floor(log10(llabs(a)))+1;
+   size_t dim2 = floor(log10(llabs(b)))+1;
 
    check_sizes(&dim1, &dim2);
 
    int* sum = (int*)malloc(sizeof(int) * (dim1+dim2));
 
    int* s1 = (int*)malloc(sizeof(int) * dim1);
-   R_number_to_digits(n1, s1, dim1);
+   R_number_to_digits(a, s1, dim1);
 
    int* s2 = (int*)malloc(sizeof(int) * dim2);
-   R_number_to_digits(n2, s2, dim2);
+   R_number_to_digits(b, s2, dim2);
 
    print_digits("s1 - input: ", s1, dim1);
    print_digits("s2 - input: ", s2, dim2);
@@ -148,8 +180,22 @@ int main() {
       printf("sum: %d\n", sum[i]);
 
    for (size_t i = 0; i < (dim1+dim2); i++)
-      p += (sum[i] * (long long)pow(10,(double)i));
+      r += (sum[i] * (long long)pow(10,(double)i));
    
+   free(s1);
+   free(s2);
+   free(sum);
+
+   return r;
+}
+
+int main() {
+   long long n1,n2;
+   long long p = 0;
+
+   user_input(&n1, &n2);
+
+   p = K_multip(n1,n2);
    
    printf("---------------------------\n");
    printf("Multip. Karatsuba's Method: %lld\n", p);
@@ -157,8 +203,5 @@ int main() {
    printf("Difference:                 %lld\n", (n1*n2) - p);
    printf("---------------------------\n");
 
-   free(s1);
-   free(s2);
-   free(sum);
    return 0;
 }
