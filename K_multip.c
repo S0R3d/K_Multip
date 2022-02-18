@@ -94,5 +94,28 @@ void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
 
 long long K_multip(long long a, long long b) {
    long long r = 0;
+
+   size_t dim1 = floor(log10(llabs(a)))+1;
+   size_t dim2 = floor(log10(llabs(b)))+1;
+
+   check_sizes(&dim1, &dim2);
+
+   int* sum = (int*)malloc(sizeof(int) * (dim1+dim2));
+
+   int* s1 = (int*)malloc(sizeof(int) * dim1);
+   R_number_to_digits(a, s1, dim1);
+
+   int* s2 = (int*)malloc(sizeof(int) * dim2);
+   R_number_to_digits(b, s2, dim2);
+   
+   K_core(sum, s1, dim1, s2, dim2);
+
+   for (size_t i = 0; i < (dim1+dim2); i++)
+      r += (sum[i] * (long long)pow(10,(double)i));
+   
+   free(s1);
+   free(s2);
+   free(sum);
+
    return r;
 }
