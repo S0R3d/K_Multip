@@ -30,6 +30,8 @@ void print_digits(char prev[], int *s, size_t dim) {
 }
 
 void check_sizes(size_t* ptr1, size_t* ptr2) {
+   if (*ptr1 == 0 || *ptr2 == 0)
+      *ptr1 = 1, *ptr2 = 1;
    if (*ptr1 != *ptr2) {
       if (*ptr1 != *ptr2 && *ptr1 > *ptr2)
          *ptr2 += (*ptr1) - (*ptr2);
@@ -69,33 +71,36 @@ void sum_digits(int *s1, int *s2, size_t dim) {
 // TODO: check if dimensions if corrent after modify them:
 // 1 dim even
 // 2 dim1 = dim2
-int zeros_check(int* s1, size_t* dim1, int* s2, size_t* dim2) {
-   // n. of zero in array
-   size_t zeros = 0;
-   // zeros' pos
-   int pos[*dim1];
+int zeros_check(int* s1, size_t* dim1, size_t* dim2) {
+   // here below *dim1 =,== *dim2
+   if (*dim1 == *dim2) {
+      // n. of zero in array 
+      size_t zeros = 0;
+      // zeros' positions
+      int pos[*dim1];
 
-   for (size_t i = 0; i < *dim1; ++i) {
-      if (*(s1+i) == 0) {
-         pos[zeros] = i;
-         zeros++;
+      print_digits("preloop-pos: ", pos, *dim1);
+      for (size_t i = 0; i < *dim1; ++i) {
+         if (*(s1+i) == 0) {
+            pos[zeros] = i;
+            zeros++;
+         } else pos[zeros] = 0;
       }
-   }
+      print_digits("postloop-pos: ", pos, *dim1);
+      
+      // all 0, result of multip = 0
+      if (zeros == *dim1) return 0;
 
-   for (size_t i = 0; i < *dim1; ++i)
-      printf("%d\n", pos[i]);
-   
-   // all 0, result of multip = 0
-   if (zeros == *dim1) return 0;
-
-   for (size_t i = zeros, y = *dim1; i-- > 0 && y-- > 0 ; ) {
-      // check if zeros are in supp. half of array
-      if (pos[i] != y) {
-         // return y+1 == *dim1 ? *dim1 : y+1;
-         if (y+1 != *dim1) *dim1 = y+1;
+      for (size_t i = zeros, y = *dim1; i-- > 0 && y-- > 0 ; ) {
+         // check if zeros are in supp. half of array
+         if (pos[i] != (int)y) if (y+1 != *dim1) *dim1 = y+1;
       }
-   }
-   // return *dim1; dim correct
+      return 1;
+   } else if (*dim1 != *dim2) {
+      printf("not implemented!\n");
+      // forse non sono mai diversi perche check_sizes corregge la diversità
+      return -1;
+   } else return -1;
 }
 
 void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2) 
@@ -105,16 +110,28 @@ void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
       fprintf(stderr, "ERROR: possible loop detected!\nDimension values: %zu, %zu\n", dim1,dim2);
       exit(1);
    }
-
-   int res = zeros_check(s1, &dim1, s2, &dim2);
-   if ( res == 0) {
-      // moltip di soli zeri si salta la roba sotto
-   } else {
-      // potrei aver tolto degli zeri ma la moltip. va farra comunque
-   }
    
-   if (dim1 != 2 && dim2 != 2)
-   {
+      printf("pre-dim1:%zu, pre-dim2:%zu \n\n", dim1, dim2);
+      int res = zeros_check(s1, &dim1, &dim2);
+      if ( res == 0) {
+         // moltip di soli zeri si salta la roba sotto
+         // modificare sum e creare un metodo per saltare l'if che segue(tipo ritornare la funzione 'cause ricorsiva)
+         printf("res 0\n");
+         for (size_t i = 0; i < dim1+dim2; i++)
+            *(sum+i) = 0;
+         return;
+      } else if (res == 1) {
+         // potrei aver tolto degli zeri ma la moltip. va fatta comunque
+         // dim1 e/o dim2 aggionati
+         printf("res 1\n");
+         
+      } else {
+         fprintf(stderr, "ERROR: dimensions reduces fails!\nDimension value: %zu, %zu\n", dim1,dim2);
+         exit(1);
+      }
+      printf("post-dim1:%zu, after-dim2:%zu \n\n", dim1, dim2);
+   if (dim1 != 2 && dim2 != 2) {
+
       K_core(sum, s1, dim1/2, s2, dim2/2);
 
       K_core(&sum[dim1/2+dim2/2], &s1[dim1/2], dim1-dim1/2, &s2[dim2/2], dim2-dim2/2);
