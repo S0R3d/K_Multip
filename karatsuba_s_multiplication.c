@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+// Unsigned long int, size_t
+#define INF 0x8000000000000000
+
 void R_number_to_digits(int n, int *s, size_t dim) {
    for (size_t i = 0; i < dim; i++)
    {
@@ -30,8 +33,10 @@ void print_digits(char prev[], int *s, size_t dim) {
 }
 
 void check_sizes(size_t* ptr1, size_t* ptr2) {
-   if (*ptr1 == 0 || *ptr2 == 0)
-      *ptr1 = 1, *ptr2 = 1;
+   if (*ptr1 & INF)
+      *ptr1 = 1;
+   if (*ptr2 & INF)
+      *ptr2 = 1;
    if (*ptr1 != *ptr2) {
       if (*ptr1 != *ptr2 && *ptr1 > *ptr2)
          *ptr2 += (*ptr1) - (*ptr2);
