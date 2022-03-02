@@ -36,8 +36,7 @@ void sum_digits(int *s1, int *s2, size_t dim);
 void K_core(int* sum, int* s1, size_t dim1, int* s2, size_t dim2);
 
 /**
- * Function that convert two numbers in two array of digits, call k-core func, and sum finale array of digits in result number
- * Number Range:
+ * Function that convert two numbers in two array of digits, call k-core func, and sum finale array of digits in result number.
  * */
 long long K_multip(long long a, long long b);
 

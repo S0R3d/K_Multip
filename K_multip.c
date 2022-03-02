@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "K_Multip.h"
+#include "K_multip.h"
 
 void R_number_to_digits(int n, int *s, size_t dim) {
    for (size_t i = 0; i < dim; i++)
