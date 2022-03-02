@@ -2,11 +2,12 @@
 .vscode
 
 # Output files from compilation and debug
-a.out
-a.out.dSYM
+*.out
+*dSYM*
 karatsuba_s_multiplication
-karatsuba_s_multiplication.dSYM
 main
+out
 
 # Personal Helping files
 todo.md
+main.c
