@@ -78,13 +78,14 @@ void sum_digits(int *s1, int *s2, size_t dim) {
  * 0  -> tutti zeri
  * 1  -> alcuni zeri (rimossi ?)
  */
+// FIXME: NOT WORK
 int zero_decrease(int* s1, size_t* d1, int*s2, size_t* d2, size_t* res1, size_t* res2) {
    if (*d1 != *d2)
    {
       fprintf(stderr, "ERROR: Dimensions are not equals! Please use 'check_size()' before call this function");
       exit(1);
    }
-
+   
    size_t z1 = 0, z2 = 0;
    int p1[*d1], p2[*d2];
 
@@ -152,16 +153,20 @@ void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2)
    size_t res1, res2;
    int op = zero_decrease(s1, &dim1, s2, &dim2, &res1, &res2);
    if ( op == 0) {
-      // printf("op-code: %d\n", op);
+      printf("op-code: %d\n", op);
+      printf("Rilevati SOLO zeri, operazioni non eseguite\n");
       for (size_t i = 0; i < dim1+dim2; ++i)
          *(sum+i) = 0;
       return;
    } else if (op == -1) {
-      // printf("op-code: %d\n", op);
+      printf("op-code: %d\n", op);
+      printf("Nessuno zero rilevato, operazioni non eseguite\n");
    } else if (op == 1) {
-      // printf("op-code: %d\n", op);
+      printf("op-code: %d\n", op);
+      printf("Zeri rilevati, operazioni eseguite\n");
+      printf("dim: %zu,%zu\n", dim1, dim2);
    } else {
-      // printf("op-code: %d\n", op);
+      printf("op-code: %d\n", op);
       fprintf(stderr, "ERROR: dimensions reduces fails!\nDimension value: %zu, %zu\n", dim1,dim2);
       exit(1);
    }
@@ -222,14 +227,14 @@ long long K_multip(long long a, long long b) {
    int* s2 = (int*)malloc(sizeof(int) * dim2);
    R_number_to_digits(b, s2, dim2);
 
-   // print_digits("first digit input:   ", s1, dim1);
-   // print_digits("second digit input: ", s2, dim2);
+   print_digits("first digit input:   ", s1, dim1);
+   print_digits("second digit input: ", s2, dim2);
    
    K_core(sum, s1, dim1, s2, dim2);
 
-   // printf("---------------------------\n");
-   // for (size_t i = 0; i < (dim1+dim2); ++i)
-   //    printf("sum: %d\n", sum[i]);
+   printf("---------------------------\n");
+   for (size_t i = 0; i < (dim1+dim2); ++i)
+      printf("sum: %d\n", sum[i]);
 
    for (size_t i = 0; i < (dim1+dim2); ++i)
       r += (sum[i] * (long long)pow(10,(double)i));

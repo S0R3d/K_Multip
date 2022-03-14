@@ -1,4 +1,4 @@
 CFLAGS=-Wall -Wextra -Werror -std=c11 -pedantic -ggdb
 
-main: main.c K_multip.h
-	$(CC) $(CFLAGS) -o main main.c K_multip.c
+main: karatsuba_s_multiplication.c
+	$(CC) $(CFLAGS) -o out karatsuba_s_multiplication.c
