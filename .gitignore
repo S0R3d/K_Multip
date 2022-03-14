@@ -7,7 +7,9 @@
 karatsuba_s_multiplication
 main
 out
+test
 
 # Personal Helping files
 todo.md
-main.c
+main.*
+test.*
