@@ -8,7 +8,8 @@ God blessed then and said:
 
 ## Main Functions
 
-* ### void K_multip(int*, int* ,size_t ,int* ,size_t )
+* ### void K_core(int* , int* , size_t , int* , size_t )
+Function where multiplication is performed
 
 ## Support functions
 
@@ -30,6 +31,9 @@ The most significant digit occupies the first position of the array.
 * ### void R_number_to_digits(int ,int* ,size_t )
 Function that takes a number, converts it to digits and stores it in an array.
 The least significant digit occupies the first position of the array.
+
+* ### void K_multip(int*, int* ,size_t ,int* ,size_t )
+Function that convert two numbers in two array of digits, call k-core func, and sum final array of digits in result number.
 
 ## Range of Number
 * Numbers with 1 digit: 1-9 
