@@ -9,6 +9,9 @@
 // Unsigned long int, size_t means Infinity
 #define INF 0x8000000000000000
 
+// iteration counter var
+int COUNTER = 0;
+
 void R_number_to_digits(int n, int *s, size_t dim) {
    for (size_t i = 0; i < dim; ++i)
    {
@@ -74,8 +77,8 @@ void sum_digits(int *s1, int *s2, size_t dim) {
 
 /**
  * Exit code function:
- * -1 -> nessuno zero
- * 0  -> tutti zeri
+ * -1 -> nessuno zero, nessuno zero trovato la moltiplicazione va eseguita (in profodità) completa
+ * 0  -> tutti zeri, restituisce 0 la motiplicazione che ha chiamato questa function
  * 1  -> alcuni zeri (rimossi ?)
  */
 // FIXME: NOT WORK
@@ -142,8 +145,11 @@ void zero_increase(int* sum, size_t* dim1, size_t* dim2, size_t res1, size_t res
       *(sum+i) = 0;
 }
 
+// FIXME: 10000*10000 not work
 void K_core(int *sum, int *s1, size_t dim1, int *s2, size_t dim2) 
 {
+   // iteration counter
+   COUNTER += 1;
    if (dim1 == 0 && dim2 == 0)
    {
       fprintf(stderr, "ERROR: possible loop detected!\nDimension values: %zu, %zu\n", dim1, dim2);
@@ -257,6 +263,8 @@ int main() {
    printf("Multip. Karatsuba's Method: %lld\n", p);
    printf("Multip. STD Method:         %lld\n", n1*n2);
    printf("Difference:                 %lld\n", (n1*n2) - p);
+   printf("---------------------------\n");
+   printf("Number of K_core iterations:%d\n", COUNTER);
    printf("---------------------------\n");
 
    return 0;

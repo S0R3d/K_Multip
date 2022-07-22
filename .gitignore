@@ -8,6 +8,7 @@ karatsuba_s_multiplication
 main
 out
 test
+*.ggb
 
 # Personal Helping files
 todo.md
